@@ -1,13 +1,14 @@
 require "octokit"
 
-
-puts "THIS IS YOUR SECRET: #{(ENV['GITHUB_TOKEN'] || '').reverse}"
-
 client = Octokit::Client.new(:access_token => ENV['GITHUB_TOKEN'])
-user = client.user
+projects = client.projects("#{ENV['PROJECT_NWO']}/projects")
+puts projects.to_yaml
 
-puts "This is super cool"
-puts "#{user.to_yaml}"
-puts "#{ENV['PROJECT_NWO']}"
-puts "#{ENV['PROJECT_ID']}"
+
+
+
+# puts "This is super cool"
+# puts "#{user.to_yaml}"
+# puts "#{ENV['PROJECT_NWO']}"
+# puts "#{ENV['PROJECT_ID']}"
 
