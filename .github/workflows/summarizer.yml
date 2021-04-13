@@ -23,6 +23,9 @@ jobs:
         with:
           ruby-version: "2.7"
 
+      - name: Install octokit gem
+        run: gem install octokit
+
       - name: Fetches issues from GitHub
         run: ruby .github/workflows/fetch-done-issues.rb
         env:
