@@ -1,10 +1,12 @@
 require "octokit"
 
-puts "#{ENV['GITHUB_TOKEN'].reverse}"
 nwo = ENV['PROJECT_NWO']
 client = Octokit::Client.new(:access_token => ENV['GITHUB_TOKEN'])
 projects = client.projects(nwo)
-puts projects.to_json
+projects.each do |project|
+  # Print the project id: name and the number of open issues
+  puts "#{project.id}: #{project.name} (#{project.open_issues_count})"
+end
 
 
 
