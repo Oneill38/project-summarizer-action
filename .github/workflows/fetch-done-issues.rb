@@ -1,7 +1,8 @@
 require "octokit"
 
+nwo = ENV['PROJECT_NWO']
 client = Octokit::Client.new(:access_token => ENV['GITHUB_TOKEN'])
-projects = client.projects("#{ENV['PROJECT_NWO']}/projects")
+projects = client.projects(nwo)
 puts projects.to_yaml
 
 
