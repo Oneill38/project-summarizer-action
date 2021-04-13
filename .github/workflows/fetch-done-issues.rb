@@ -9,17 +9,13 @@ projects.each do |project|
 
   project = client.project(project.id)
 
-  project.columns.each do |column|
-    # Print the column id: name and the number of open issues
-    puts "  #{column.id}: #{column.name} (#{column.open_issues_count})"
+  client.project_columns(project.id).each do |column|
+    puts "  #{column.id}: #{column.name}"
 
-    cards = client.cards(project.id, column.id)
-    cards.each do |card|
+    client.column_cards(column.id).each do |card|
       puts "    #{card.id}: #{card.to_json}"
     end
-
   end
-
 end
 
 
