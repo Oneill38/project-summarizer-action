@@ -12,6 +12,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
       - name: GitHub CLI authentication
         run: echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
 
