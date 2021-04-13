@@ -6,6 +6,20 @@ projects = client.projects(nwo)
 projects.each do |project|
   # Print the project id: name and the number of open issues
   puts "#{project.id}: #{project.name} (#{project.open_issues_count})"
+
+  project = client.project(project.id)
+
+  project.columns.each do |column|
+    # Print the column id: name and the number of open issues
+    puts "  #{column.id}: #{column.name} (#{column.open_issues_count})"
+
+    cards = client.cards(project.id, column.id)
+    cards.each do |card|
+      puts "    #{card.id}: #{card.to_json}"
+    end
+
+  end
+
 end
 
 
