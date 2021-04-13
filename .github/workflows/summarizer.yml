@@ -1,0 +1,27 @@
+name: Done Summarizer
+
+on:
+  - push
+  # schedule:
+  #   # * is a special character in YAML so you have to quote this string
+  #   # Run this task mondays at 12:00 AM
+  #   - cron: "* * * * 1"
+
+jobs:
+  fetch-done-issues:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: GitHub CLI authentication
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "2.7"
+
+      - name: Fetches issues from GitHub
+        run: ruby .github/workflows/fetch-done-issues.rb
+        env:
+          PROJECT_NWO: "jeffrafter/project-summarizer-action"
+          PROJECT_ID: "1"
