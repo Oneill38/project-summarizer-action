@@ -29,6 +29,6 @@ jobs:
       - name: Fetches issues from GitHub
         run: ruby .github/workflows/fetch-done-issues.rb
         env:
-          GITHUB_TOKEN: "${secrets.GITHUB_TOKEN}"
+          GITHUB_TOKEN: "${{secrets.GITHUB_TOKEN}}"
           PROJECT_NWO: "jeffrafter/project-summarizer-action"
           PROJECT_ID: "1"
