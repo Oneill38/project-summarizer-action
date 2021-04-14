@@ -19,15 +19,13 @@ projects.each do |project|
     next unless column.name == 'Done'
 
     client.column_cards(column.id).each do |card|
-      puts "    #{card.id}: #{formatted_card_url(card.content_url)}"
+      # original url comes like: https://api.github.com/repos/jeffrafter/project-summarizer-action/issues/2
+      # we want: https://github.com/jeffrafter/project-summarizer-action/issues/2
+      url = card.content_url
+      url.slice!("api.")
+      url.slice!("repos/")
+
+      puts "    #{card.id}: #{url}"
     end
   end
-end
-
-# original url comes like: https://api.github.com/repos/jeffrafter/project-summarizer-action/issues/2
-# we want: https://github.com/jeffrafter/project-summarizer-action/issues/2
-def formatted_card_url(url)
-  url.slice!("api.")
-  url.slice!("repos/")
-  url
 end
