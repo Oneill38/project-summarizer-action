@@ -19,8 +19,15 @@ projects.each do |project|
     next unless column.name == 'Done'
 
     client.column_cards(column.id).each do |card|
-      puts "    #{card.id}: #{card.content_url}"
-      puts card.to_attrs
+      puts "    #{card.id}: #{formatted_card_url(card.content_url)}"
     end
   end
+end
+
+# original url comes like: https://api.github.com/repos/jeffrafter/project-summarizer-action/issues/2
+# we want: https://github.com/jeffrafter/project-summarizer-action/issues/2
+def formatted_card_url(url)
+  url.slice!("api.")
+  url.slice!("repos/")
+  url
 end
