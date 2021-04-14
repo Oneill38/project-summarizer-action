@@ -16,11 +16,11 @@ projects.each do |project|
   client.project_columns(project.id).each do |column|
     puts "  #{column.id}: #{column.name}"
 
-    if column.name == 'Done'
-      client.column_cards(column.id).each do |card|
-        puts "    #{card.id}: #{card.html_url}"
-        puts card.map(&:to_h).to_json(:indent => 4)
-      end
+    next unless column.name == 'Done'
+
+    client.column_cards(column.id).each do |card|
+      puts "    #{card.id}: #{card.html_url}"
+      puts card.map(&:to_h).to_json(:indent => 4)
     end
   end
 end
