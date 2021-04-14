@@ -5,13 +5,15 @@ require 'json'
 # https://octokit.github.io/octokit.rb/Octokit/Client/Projects.html
 # https://docs.github.com/en/rest/reference/projects
 
-nwo = ENV['PROJECT_NWO']
+nwo = ENV['REPO_NWO']
+project_name = ENV['PROJECT_NAME']
 
 client = Octokit::Client.new(:access_token => ENV['GITHUB_TOKEN'])
 projects = client.projects(nwo)
 projects.each do |project|
-  # TODO: do we want to check that the project name is a match
   puts "#{project.id}: #{project.name}"
+
+  next unless project.name == project_name
 
   client.project_columns(project.id).each do |column|
     puts "  #{column.id}: #{column.name}"
