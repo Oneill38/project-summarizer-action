@@ -19,7 +19,8 @@ projects.each do |project|
     next unless column.name == 'Done'
 
     client.column_cards(column.id).each do |card|
-      puts "    #{card.id}: #{card.html_url}"
+      new_card = card.rels[:self].get.data
+      puts "    #{card.id}: #{new_card.html_url}"
       puts card.map(&:to_h).to_json(:indent => 4)
     end
   end
