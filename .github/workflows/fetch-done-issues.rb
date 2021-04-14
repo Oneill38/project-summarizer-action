@@ -18,7 +18,7 @@ projects.each do |project|
 
     if column.name == 'Done'
       client.column_cards(column.id).each do |card|
-        puts "    #{card.id}: #{card.inspect}"
+        puts "    #{card.id}: #{card.html_url}"
         puts card.map(&:to_h).to_json(:indent => 4)
       end
     end
