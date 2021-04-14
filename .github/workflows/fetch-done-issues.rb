@@ -19,7 +19,7 @@ projects.each do |project|
     next unless column.name == 'Done'
 
     client.column_cards(column.id).each do |card|
-      puts "    #{card.id}:"
+      puts "    #{card.id}: #{card.content_url}"
       puts card.to_attrs
     end
   end
