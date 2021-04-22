@@ -27,7 +27,7 @@ jobs:
         run: gem install octokit
 
       - name: Fetches issues from GitHub
-        run: ruby .github/workflows/fetch-done-issues.rb | echo '::set-output'
+        run: ruby .github/workflows/fetch-done-issues.rb | cat '::set-output'
         env:
           GITHUB_TOKEN: "${{secrets.GITHUB_TOKEN}}"
           REPO_NWO: "jeffrafter/project-summarizer-action"
