@@ -51,3 +51,12 @@ jobs:
           value=`cat project_weely_summary.md`
           echo $value
 
+      - name: Create Issue From File
+        uses: peter-evans/create-issue-from-file@v3
+        with:
+          title: Weekly Summary of Done Issues
+          content-filepath: project_weely_summary.md
+          labels: |
+            report
+            automated issue
+
