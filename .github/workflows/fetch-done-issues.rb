@@ -15,7 +15,7 @@ projects.each do |project|
   puts "#{project.id}: #{project.name}"
 
   next unless project.name == project_name
-  data +="### #{project_name}\n"
+  data +="### #{project_name}"
 
   client.project_columns(project.id).each do |column|
     puts "  #{column.id}: #{column.name}"
@@ -30,7 +30,7 @@ projects.each do |project|
       url.slice!("repos/")
 
       puts "#{card.id}: #{url}"
-      data << "#{url} \n"
+      data << "#{url}"
     end
   end
 end
