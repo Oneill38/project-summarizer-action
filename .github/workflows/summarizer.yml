@@ -27,12 +27,27 @@ jobs:
         run: gem install octokit
 
       - name: Fetches issues from GitHub
-        run: ruby .github/workflows/fetch-done-issues.rb | cat
+        run: ruby .github/workflows/fetch-done-issues.rb > project_weely_summary.md
         env:
           GITHUB_TOKEN: "${{secrets.GITHUB_TOKEN}}"
           REPO_NWO: "jeffrafter/project-summarizer-action"
           PROJECT_NAME: "Cool Tasks"
-        id: done-issues-info
 
-      - name: Get color
-        run: printf "The selected color is ${{ steps.done-issues-info.outputs.SELECTED_COLOR }}"
+      - name: Upload project summary file
+        uses: actions/upload-artifact@v2
+        with:
+          name: project summary
+          path: project_weely_summary.md
+          retention-days: 3
+
+      - name: Download project summary
+        uses: actions/download-artifact@v2
+        with:
+          name: project summary
+
+      - name: Print the final result
+        shell: bash
+        run: |
+          value=`cat project_weely_summary.md`
+          echo $value
+
