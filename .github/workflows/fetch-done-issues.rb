@@ -10,12 +10,12 @@ project_name = ENV['PROJECT_NAME']
 
 client = Octokit::Client.new(:access_token => ENV['GITHUB_TOKEN'])
 projects = client.projects(nwo)
-data = {}
+data = ""
 projects.each do |project|
   puts "#{project.id}: #{project.name}"
 
   next unless project.name == project_name
-  data[project_name] = []
+  data +="### #{project_name}\n"
 
   client.project_columns(project.id).each do |column|
     puts "  #{column.id}: #{column.name}"
@@ -30,10 +30,11 @@ projects.each do |project|
       url.slice!("repos/")
 
       puts "    #{card.id}: #{url}"
+      data += "- #{url} \n"
       data[project_name] << url
     end
   end
 end
 
 # puts data.inspect
-puts "::set-output name=SELECTED_COLOR::green"
+puts "::set-output name=SELECTED_COLOR::#{data}"
