@@ -12,13 +12,13 @@ client = Octokit::Client.new(:access_token => ENV['GITHUB_TOKEN'])
 projects = client.projects(nwo)
 data = ""
 projects.each do |project|
-  puts "#{project.id}: #{project.name}"
+  # puts "#{project.id}: #{project.name}"
 
   next unless project.name == project_name
   data +="### #{project_name}\n"
 
   client.project_columns(project.id).each do |column|
-    puts "  #{column.id}: #{column.name}"
+    # puts "  #{column.id}: #{column.name}"
 
     next unless column.name == 'Done'
 
@@ -29,8 +29,8 @@ projects.each do |project|
       url.slice!("api.")
       url.slice!("repos/")
 
-      puts "#{card.id}: #{url}"
-      data << "#{url}\n"
+      # puts "#{card.id}: #{url}"
+      data << "- #{url}\n"
     end
   end
 end
