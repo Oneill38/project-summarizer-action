@@ -27,8 +27,12 @@ jobs:
         run: gem install octokit
 
       - name: Fetches issues from GitHub
-        run: ruby .github/workflows/fetch-done-issues.rb
+        run: ruby .github/workflows/fetch-done-issues.rb | echo '::set-output'
         env:
           GITHUB_TOKEN: "${{secrets.GITHUB_TOKEN}}"
           REPO_NWO: "jeffrafter/project-summarizer-action"
           PROJECT_NAME: "Cool Tasks"
+        id: done-issues-info
+
+      - name: Get color
+        run: echo "The selected color is ${{ steps.done-issues-info.outputs.SELECTED_COLOR }}"
