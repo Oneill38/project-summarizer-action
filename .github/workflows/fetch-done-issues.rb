@@ -30,7 +30,7 @@ projects.each do |project|
       url.slice!("repos/")
 
       puts "#{card.id}: #{url}"
-      data += "#{url} \n"
+      data << "#{url} \n"
     end
   end
 end
