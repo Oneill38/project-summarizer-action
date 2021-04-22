@@ -45,12 +45,6 @@ jobs:
         with:
           name: project summary
 
-      - name: Print the final result
-        shell: bash
-        run: |
-          value=`cat project_weely_summary.md`
-          echo $value
-
       - name: Create Issue From File
         uses: peter-evans/create-issue-from-file@v3
         with:
