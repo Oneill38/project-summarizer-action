@@ -29,9 +29,8 @@ projects.each do |project|
       url.slice!("api.")
       url.slice!("repos/")
 
-      puts "    #{card.id}: #{url}"
-      data += "- #{url} \n"
-      data[project_name] << url
+      puts "#{card.id}: #{url}"
+      data += "#{url} \n"
     end
   end
 end
