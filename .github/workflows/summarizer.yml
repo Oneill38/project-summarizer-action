@@ -35,4 +35,4 @@ jobs:
         id: done-issues-info
 
       - name: Get color
-        run: echo "The selected color is ${{ steps.done-issues-info.outputs.SELECTED_COLOR }}"
+        run: printf "The selected color is ${{ steps.done-issues-info.outputs.SELECTED_COLOR }}"
