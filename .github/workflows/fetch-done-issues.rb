@@ -36,4 +36,4 @@ projects.each do |project|
 end
 
 # puts data.inspect
-puts "name=SELECTED_COLOR::green"
+puts "::set-output name=SELECTED_COLOR::green"
