@@ -40,6 +40,17 @@ jobs:
           path: project_weely_summary.md
           retention-days: 3
 
+  report-done-issues:
+    needs: [fetch-done-issues]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: GitHub CLI authentication
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+
       - name: Download project summary
         uses: actions/download-artifact@v2
         with:
@@ -53,4 +64,3 @@ jobs:
           labels: |
             report
             automated issue
-
