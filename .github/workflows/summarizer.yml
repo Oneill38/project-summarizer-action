@@ -30,8 +30,8 @@ jobs:
         run: ruby .github/workflows/fetch-done-issues.rb > project_weely_summary.md
         env:
           GITHUB_TOKEN: "${{secrets.GITHUB_TOKEN}}"
-          REPO_NWO: "jeffrafter/project-summarizer-action"
-          PROJECT_NAME: "Cool Tasks"
+          REPO_NWO: "jeffrafter/project-summarizer-action,jeffrafter/musical-spoon"
+          PROJECT_NAME: "Cool Tasks,Utensils"
 
       - name: Upload project summary file
         uses: actions/upload-artifact@v2

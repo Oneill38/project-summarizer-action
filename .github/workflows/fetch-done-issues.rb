@@ -5,31 +5,35 @@ require 'json'
 # https://octokit.github.io/octokit.rb/Octokit/Client/Projects.html
 # https://docs.github.com/en/rest/reference/projects
 
-nwo = ENV['REPO_NWO']
-project_name = ENV['PROJECT_NAME']
+nwos = ENV['REPO_NWO'].split(",")
+project_names = ENV['PROJECT_NAME'].split(",")
 
 client = Octokit::Client.new(:access_token => ENV['GITHUB_TOKEN'])
-projects = client.projects(nwo)
-projects.each do |project|
-  # puts "#{project.id}: #{project.name}"
 
-  next unless project.name == project_name
-  puts "### #{project_name}\n"
+nwos.each_with_index do |nwo,idx|
+  project_name = project_names[idx]
+  projects = client.projects(nwo)
+  projects.each do |project|
+    # puts "#{project.id}: #{project.name}"
 
-  client.project_columns(project.id).each do |column|
-    # puts "  #{column.id}: #{column.name}"
+    next unless project.name == project_name
+    puts "### #{project_name}\n"
 
-    next unless column.name == 'Done'
+    client.project_columns(project.id).each do |column|
+      # puts "  #{column.id}: #{column.name}"
 
-    client.column_cards(column.id).each do |card|
-      # original url comes like: https://api.github.com/repos/jeffrafter/project-summarizer-action/issues/2
-      # we want: https://github.com/jeffrafter/project-summarizer-action/issues/2
-      url = card.content_url
-      url.slice!("api.")
-      url.slice!("repos/")
+      next unless column.name == 'Done'
 
-      # puts "#{card.id}: #{url}"
-      puts "- #{url}\n"
+      client.column_cards(column.id).each do |card|
+        # original url comes like: https://api.github.com/repos/jeffrafter/project-summarizer-action/issues/2
+        # we want: https://github.com/jeffrafter/project-summarizer-action/issues/2
+        url = card.content_url
+        url.slice!("api.")
+        url.slice!("repos/")
+
+        # puts "#{card.id}: #{url}"
+        puts "- #{url}\n"
+      end
     end
   end
 end
